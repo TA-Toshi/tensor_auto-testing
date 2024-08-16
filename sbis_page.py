@@ -1,11 +1,12 @@
 from base import BasePage
 from selenium.webdriver.common.by import By
 import os
+import time
 
 
 class SbisLocators:
     tensor_logo = (
-        By.CSS_SELECTOR, "a[href = 'https://tensor.ru/']")
+        By.CSS_SELECTOR, "a[title= 'tensor.ru']")
     people_power = (
         By.XPATH, "//div[@class = 'tensor_ru-Index__block4-content tensor_ru-Index__card']/p[1]")
     about = (
@@ -37,11 +38,13 @@ class SbisLocatorsThree:
 class SbisHelperFirst(BasePage):
 
     def to_tensor(self):
+        time.sleep(2)
         self.find_element(SbisLocators.tensor_logo).click()
         return self.driver.switch_to.window(self.driver.window_handles[1])
 
     def check_people_power(self):
-        return self.find_element(SbisLocators.people_power)
+        time.sleep(2)
+        return self.find_element(SbisLocators.people_power).text
 
     def to_about(self):
         element = self.find_element(SbisLocators.people_power)
@@ -59,6 +62,7 @@ class SbisHelperFirst(BasePage):
 
 class SbisHelperSecond(BasePage):
     def check_region(self):
+        time.sleep(2)
         return self.find_element(SbisLocatorsSecond.region).text
 
     def check_partner_list(self):
@@ -79,12 +83,15 @@ class SbisHelperSecond(BasePage):
 class SbisHelperThree(BasePage):
 
     def to_download(self):
+        time.sleep(2)
         return self.find_element(SbisLocatorsThree.download).click()
 
     def file_download(self):
         self.find_element(SbisLocatorsThree.plugin).click()
         self.find_element(SbisLocatorsThree.win_os).click()
-        return self.find_element(SbisLocatorsThree.file_download).click()
+        self.find_element(SbisLocatorsThree.file_download).click()
+        time.sleep(15)
+        return True
 
     def size_on_site(self):
         size = self.find_element(SbisLocatorsThree.file_download).text

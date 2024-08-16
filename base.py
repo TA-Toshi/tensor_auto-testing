@@ -3,6 +3,7 @@ import os
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import time
 
 
 class BaseLocators:
@@ -28,6 +29,7 @@ class BasePage:
         return self.driver.get(self.base_url)
 
     def to_contacts(self):
+        time.sleep(2)
         return self.find_element(BaseLocators.sbis_contacts).click()
 
     @staticmethod
